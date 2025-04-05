@@ -1,0 +1,20 @@
+{
+    "python.poetryPath": "/bin/python3",
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/src",
+        "${workspaceFolder}/src/input",
+        "${workspaceFolder}/src/log",
+        "${workspaceFolder}/src/netlist",
+        "${workspaceFolder}/src/parser",
+        "${workspaceFolder}/src/run_findvnet",
+        "${workspaceFolder}/src/run_makeiprobe",
+        "${workspaceFolder}/src/version",
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+    },
+    "black-formatter.args": [
+        "--line-length", "119"
+    ],
+}

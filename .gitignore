@@ -1,0 +1,12 @@
+.*.sw*
+*.log
+*.probe
+*.txt
+__pycache__*
+.VSCodeCounter
+src/*.*.sw*
+src/__pycache__*
+src/*/.*.sw*
+src/*/__pycache__*
+tests_result/*
+temp
