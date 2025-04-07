@@ -8,5 +8,6 @@ src/*.*.sw*
 src/__pycache__*
 src/*/.*.sw*
 src/*/__pycache__*
-tests_result/*
+tests/*.png
+tests/*.log
 temp

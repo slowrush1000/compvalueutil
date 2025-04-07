@@ -64,7 +64,7 @@ class Compvalueutil:
         if 6 > len(args):
             exit()
         logging.basicConfig(
-            level=logging.INFO, format="%(asctime)s:%(levelname)s:%(message)s", filename=f"{args[0]}.log"
+            level=logging.INFO, format="%(asctime)s:%(levelname)s: %(message)s", filename=f"{args[0]}.log"
         )
 
     def init_argparser(self):
@@ -234,8 +234,8 @@ class Compvalueutil:
         plt.scatter(array_0th, array_nth)
         plt.xlabel(f"{self.m_filenames[0]}")
         plt.ylabel(f"{self.m_filenames[i]}")
-        plt.title(f"0th vs {i}th scatter plot")
-        plt.colorbar(label="color level")
+        plt.title(f"0th vs {i}th scatter plot(+-10%)")
+        # plt.colorbar(label="color level")
         plt.grid(True)
         png_filename = f"{self.m_output_prefix}.{i}th.scatter.plot.png"
         plt.savefig(f"{png_filename}")
@@ -268,11 +268,16 @@ class Compvalueutil:
     def get_max_pos(self, pos):
         return max(self.m_name_positions[pos], self.m_value_positions[pos])
 
-    def print_node_dic(self):
+    def print_node_dic(self, size=10):
         logging.info(f"# logging.info node dic start ... {datetime.datetime.now()}")
+        count = 0
         for name in self.m_node_dic:
+            if count > size:
+                logging.info(f"because count({count}) is more than size({size}), print_node_dic is halted.")
+                break
             node = self.m_node_dic[name]
             logging.info(f"{name} {node.get_str()}")
+            count += 1
         logging.info(f"# logging.info node dic end ... {datetime.datetime.now()}")
 
     def run(self, args):
@@ -294,4 +299,4 @@ def main(args):
 
 
 if __name__ == "__main__":
-    main(sys.argv)
+    main(sys.argv[1:])
