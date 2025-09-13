@@ -1,5 +1,5 @@
 {
-    "python.poetryPath": "/home/yh1000/anaconda3/bin/python3",
+    "python.poetryPath": "/home/yh1000/miniconda3/bin/python3",
     "python.analysis.extraPaths": [
         "${workspaceFolder}/src",
         "${workspaceFolder}/src/input",

@@ -1,0 +1,122 @@
+2025-09-14 08:28:19,630 - compvalueutil - INFO - # compvalueutil.py(20250913.0.0) start ... 2025-09-14 08:28:19.630300
+2025-09-14 08:28:19,630 - compvalueutil - INFO - # read args start ... 2025-09-14 08:28:19.630635
+2025-09-14 08:28:19,631 - compvalueutil - INFO - # read args end ... 2025-09-14 08:28:19.631198
+2025-09-14 08:28:19,631 - compvalueutil - INFO - # self.m_logger.info inputs start ... 2025-09-14 08:28:19.631266
+2025-09-14 08:28:19,631 - compvalueutil - INFO - output prefix       : tests/test001
+2025-09-14 08:28:19,631 - compvalueutil - INFO - comp size           : 3
+2025-09-14 08:28:19,631 - compvalueutil - INFO - 0th filename      : tests/1.txt
+2025-09-14 08:28:19,631 - compvalueutil - INFO - 0th name pos      : 0
+2025-09-14 08:28:19,631 - compvalueutil - INFO - 0th value pos     : 1
+2025-09-14 08:28:19,631 - compvalueutil - INFO - 1th filename      : tests/2.txt
+2025-09-14 08:28:19,631 - compvalueutil - INFO - 1th name pos      : 0
+2025-09-14 08:28:19,631 - compvalueutil - INFO - 1th value pos     : 1
+2025-09-14 08:28:19,631 - compvalueutil - INFO - 2th filename      : tests/3.txt
+2025-09-14 08:28:19,631 - compvalueutil - INFO - 2th name pos      : 0
+2025-09-14 08:28:19,631 - compvalueutil - INFO - 2th value pos     : 1
+2025-09-14 08:28:19,631 - compvalueutil - INFO - add_value           : False
+2025-09-14 08:28:19,631 - compvalueutil - INFO - abs_value           : False
+2025-09-14 08:28:19,631 - compvalueutil - INFO - name_case           : False
+2025-09-14 08:28:19,631 - compvalueutil - INFO - bins                : 50
+2025-09-14 08:28:19,631 - compvalueutil - INFO - # self.m_logger.info inputs end ... 2025-09-14 08:28:19.631962
+2025-09-14 08:28:19,632 - compvalueutil - INFO - # read files start ... 2025-09-14 08:28:19.631999
+2025-09-14 08:28:19,632 - compvalueutil - INFO - # read file(tests/1.txt) start ... 2025-09-14 08:28:19.632034
+2025-09-14 08:28:19,632 - compvalueutil - INFO - # read file(tests/1.txt) end ... 2025-09-14 08:28:19.632132
+2025-09-14 08:28:19,632 - compvalueutil - INFO - # read file(tests/2.txt) start ... 2025-09-14 08:28:19.632183
+2025-09-14 08:28:19,632 - compvalueutil - INFO - # read file(tests/2.txt) end ... 2025-09-14 08:28:19.632262
+2025-09-14 08:28:19,632 - compvalueutil - INFO - # read file(tests/3.txt) start ... 2025-09-14 08:28:19.632310
+2025-09-14 08:28:19,632 - compvalueutil - INFO - # read file(tests/3.txt) end ... 2025-09-14 08:28:19.632379
+2025-09-14 08:28:19,632 - compvalueutil - INFO - # read files end ... 2025-09-14 08:28:19.632436
+2025-09-14 08:28:19,632 - compvalueutil - INFO - # self.m_logger.info statistics all start ... 2025-09-14 08:28:19.632477
+2025-09-14 08:28:19,632 - compvalueutil - INFO - # self.m_logger.info statistics(tests/1.txt) start ... 2025-09-14 08:28:19.632516
+2025-09-14 08:28:19,632 - compvalueutil - INFO - 0th size   : 3
+2025-09-14 08:28:19,632 - compvalueutil - INFO - 0th avg    : 200.0
+2025-09-14 08:28:19,632 - compvalueutil - INFO - 0th median : 200.0
+2025-09-14 08:28:19,632 - compvalueutil - INFO - 0th min    : 100.0 a
+2025-09-14 08:28:19,632 - compvalueutil - INFO - 0th max    : 300.0 c
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 0th std    : 81.64965809277261
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 0th var    : 6666.666666666667
+2025-09-14 08:28:19,633 - compvalueutil - INFO - # self.m_logger.info statistics(tests/1.txt) end ... 2025-09-14 08:28:19.633150
+2025-09-14 08:28:19,633 - compvalueutil - INFO - # self.m_logger.info statistics(tests/2.txt) start ... 2025-09-14 08:28:19.633196
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 1th size   : 3
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 1th avg    : 196.66666666666666
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 1th median : 190.0
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 1th min    : 110.0 a
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 1th max    : 290.0 c
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 1th std    : 73.63574011458174
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 1th var    : 5422.222222222223
+2025-09-14 08:28:19,633 - compvalueutil - INFO - # self.m_logger.info statistics(tests/2.txt) end ... 2025-09-14 08:28:19.633687
+2025-09-14 08:28:19,633 - compvalueutil - INFO - # self.m_logger.info statistics(tests/3.txt) start ... 2025-09-14 08:28:19.633737
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 2th size   : 3
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 2th avg    : 203.33333333333334
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 2th median : 210.0
+2025-09-14 08:28:19,633 - compvalueutil - INFO - 2th min    : 90.0 a
+2025-09-14 08:28:19,634 - compvalueutil - INFO - 2th max    : 310.0 c
+2025-09-14 08:28:19,634 - compvalueutil - INFO - 2th std    : 89.93825042154694
+2025-09-14 08:28:19,634 - compvalueutil - INFO - 2th var    : 8088.888888888888
+2025-09-14 08:28:19,634 - compvalueutil - INFO - # self.m_logger.info statistics(tests/3.txt) end ... 2025-09-14 08:28:19.634209
+2025-09-14 08:28:19,634 - compvalueutil - INFO - # self.m_logger.info statistics all end ... 2025-09-14 08:28:19.634253
+2025-09-14 08:28:19,634 - compvalueutil - INFO - # compare all start ... 2025-09-14 08:28:19.634292
+2025-09-14 08:28:19,634 - compvalueutil - INFO - # compare 0 vs 1 start ... 2025-09-14 08:28:19.634331
+2025-09-14 08:28:19,634 - compvalueutil - INFO - diff size   : 3
+2025-09-14 08:28:19,634 - compvalueutil - INFO - diff avg    : -3.3333333333333335
+2025-09-14 08:28:19,634 - compvalueutil - INFO - diff median : -10.0
+2025-09-14 08:28:19,634 - compvalueutil - INFO - diff min    : -10.0 b
+2025-09-14 08:28:19,634 - compvalueutil - INFO - diff max    : 10.0 a
+2025-09-14 08:28:19,634 - compvalueutil - INFO - diff std    : 9.428090415820634
+2025-09-14 08:28:19,634 - compvalueutil - INFO - diff var    : 88.8888888888889
+2025-09-14 08:28:19,634 - compvalueutil - INFO - diff_percentage size   : 3
+2025-09-14 08:28:19,634 - compvalueutil - INFO - diff_percentage avg    : 0.5555555555555555
+2025-09-14 08:28:19,634 - compvalueutil - INFO - diff_percentage median : -3.3333333333333335
+2025-09-14 08:28:19,635 - compvalueutil - INFO - diff_percentage min    : -5.0 b
+2025-09-14 08:28:19,635 - compvalueutil - INFO - diff_percentage max    : 10.0 a
+2025-09-14 08:28:19,635 - compvalueutil - INFO - diff_percentage std    : 6.71280331866365
+2025-09-14 08:28:19,635 - compvalueutil - INFO - diff_percentage var    : 45.06172839506172
+2025-09-14 08:28:19,635 - compvalueutil - INFO - # write scatter plot start
+2025-09-14 08:28:19,786 - compvalueutil - INFO - png file : tests/test001.1th.scatter.plot.png
+2025-09-14 08:28:19,876 - compvalueutil - INFO - # write scatter plot end
+2025-09-14 08:28:19,876 - compvalueutil - INFO - # write diff histogram plot(0th vs 1th) start ... 2025-09-14 08:28:19.876278
+2025-09-14 08:28:19,911 - compvalueutil - INFO - png file : tests/test001.1th.diff.hist.plot.png
+2025-09-14 08:28:19,979 - compvalueutil - INFO - # write diff histogram plot(0th vs 1th) end ... 2025-09-14 08:28:19.979684
+2025-09-14 08:28:19,979 - compvalueutil - INFO - # write diff.percentage histogram plot(0th vs 1th) start ... 2025-09-14 08:28:19.979840
+2025-09-14 08:28:20,014 - compvalueutil - INFO - png file : tests/test001.1th.diff.percentage.hist.plot.png
+2025-09-14 08:28:20,076 - compvalueutil - INFO - # write diff.percentage histogram plot(0th vs 1th) end ... 2025-09-14 08:28:20.076042
+2025-09-14 08:28:20,076 - compvalueutil - INFO - # write 2dhist plot(0th vs 1th) start ... 2025-09-14 08:28:20.076184
+2025-09-14 08:28:20,097 - compvalueutil - INFO - png file : tests/test001.1th.2dhist.plot.png
+2025-09-14 08:28:20,177 - compvalueutil - INFO - # write 2dhist plot(0th vs 1th) end ... 2025-09-14 08:28:20.177754
+2025-09-14 08:28:20,177 - compvalueutil - INFO - # write scatter with hist plot(0th vs 1th) start ... 2025-09-14 08:28:20.177885
+2025-09-14 08:28:20,249 - compvalueutil - INFO - png file : tests/test001.1th.scatter_hist.plot.png
+2025-09-14 08:28:20,473 - compvalueutil - INFO - # write scatter with hist plot(0th vs 1th) end ... 2025-09-14 08:28:20.473615
+2025-09-14 08:28:20,473 - compvalueutil - INFO - # compare 0 vs 1 end ... 2025-09-14 08:28:20.473841
+2025-09-14 08:28:20,473 - compvalueutil - INFO - # compare 0 vs 2 start ... 2025-09-14 08:28:20.473930
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff size   : 3
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff avg    : 3.3333333333333335
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff median : 10.0
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff min    : -10.0 a
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff max    : 10.0 b
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff std    : 9.428090415820634
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff var    : 88.8888888888889
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff_percentage size   : 3
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff_percentage avg    : -0.5555555555555555
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff_percentage median : 3.3333333333333335
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff_percentage min    : -10.0 a
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff_percentage max    : 5.0 b
+2025-09-14 08:28:20,474 - compvalueutil - INFO - diff_percentage std    : 6.71280331866365
+2025-09-14 08:28:20,475 - compvalueutil - INFO - diff_percentage var    : 45.06172839506172
+2025-09-14 08:28:20,475 - compvalueutil - INFO - # write scatter plot start
+2025-09-14 08:28:20,487 - compvalueutil - INFO - png file : tests/test001.2th.scatter.plot.png
+2025-09-14 08:28:20,559 - compvalueutil - INFO - # write scatter plot end
+2025-09-14 08:28:20,559 - compvalueutil - INFO - # write diff histogram plot(0th vs 2th) start ... 2025-09-14 08:28:20.559311
+2025-09-14 08:28:20,593 - compvalueutil - INFO - png file : tests/test001.2th.diff.hist.plot.png
+2025-09-14 08:28:20,659 - compvalueutil - INFO - # write diff histogram plot(0th vs 2th) end ... 2025-09-14 08:28:20.659562
+2025-09-14 08:28:20,659 - compvalueutil - INFO - # write diff.percentage histogram plot(0th vs 2th) start ... 2025-09-14 08:28:20.659769
+2025-09-14 08:28:20,694 - compvalueutil - INFO - png file : tests/test001.2th.diff.percentage.hist.plot.png
+2025-09-14 08:28:20,755 - compvalueutil - INFO - # write diff.percentage histogram plot(0th vs 2th) end ... 2025-09-14 08:28:20.755624
+2025-09-14 08:28:20,755 - compvalueutil - INFO - # write 2dhist plot(0th vs 2th) start ... 2025-09-14 08:28:20.755764
+2025-09-14 08:28:20,778 - compvalueutil - INFO - png file : tests/test001.2th.2dhist.plot.png
+2025-09-14 08:28:20,854 - compvalueutil - INFO - # write 2dhist plot(0th vs 2th) end ... 2025-09-14 08:28:20.854650
+2025-09-14 08:28:20,854 - compvalueutil - INFO - # write scatter with hist plot(0th vs 2th) start ... 2025-09-14 08:28:20.854755
+2025-09-14 08:28:20,930 - compvalueutil - INFO - png file : tests/test001.2th.scatter_hist.plot.png
+2025-09-14 08:28:21,152 - compvalueutil - INFO - # write scatter with hist plot(0th vs 2th) end ... 2025-09-14 08:28:21.152865
+2025-09-14 08:28:21,153 - compvalueutil - INFO - # compare 0 vs 2 end ... 2025-09-14 08:28:21.152999
+2025-09-14 08:28:21,153 - compvalueutil - INFO - # compare all end ... 2025-09-14 08:28:21.153108
+2025-09-14 08:28:21,153 - compvalueutil - INFO - # compvalueutil.py(20250913.0.0) end ... 2025-09-14 08:28:21.153169
