@@ -54,9 +54,11 @@ class Compvalueutil:
         # self.m_argparser = argparse.ArgumentParser(prog="compvalueutil.py")
         self.m_argparser = LoggingArgumentParser()
         self.m_logger = None
+        #
+        self.m_version = "20250913.0.0"
 
     def print_usage(self):
-        print(f"# compvalueutil usage:")
+        print(f"# compvalueutil usage({self.m_version}):")
         print(
             f"% compvalueutil.py output_prefix comp_size 1st_filename 1st_name_pos 1st_value_pos 2nd_filename 2nd_name_pos 2nd_value_pos<...> <-add_value> <-abs_value> <-name_case> <-hist_x_min_max min max>"
         )
@@ -67,7 +69,9 @@ class Compvalueutil:
         self.m_logger = logging.getLogger(__name__)
         self.m_logger.setLevel(logging.INFO)
         #
-        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
         #
         stream_handler = logging.StreamHandler()
         stream_handler.setFormatter(formatter)
@@ -95,19 +99,29 @@ class Compvalueutil:
         # self.m_logger.info(f"{self.m_comp_size}")
         if 0 != (len(arg.filename_namepos_valuepos) % 3):
             self.m_logger.info(f"{arg.filename_namepos_valuepos}")
-            self.m_argparser.error("Expected filename followed by name pos and value pos")
+            self.m_argparser.error(
+                "Expected filename followed by name pos and value pos"
+            )
             exit()
         i = 0
         while i < len(arg.filename_namepos_valuepos):
             if i + 2 >= len(arg.filename_namepos_valuepos):
-                self.m_argparser.error("name pos and value pos must be integers")
+                self.m_argparser.error(
+                    "name pos and value pos must be integers"
+                )
             self.m_filenames.append(arg.filename_namepos_valuepos[i])
             try:
-                self.m_name_positions.append(int(arg.filename_namepos_valuepos[i + 1]))
-                self.m_value_positions.append(int(arg.filename_namepos_valuepos[i + 2]))
+                self.m_name_positions.append(
+                    int(arg.filename_namepos_valuepos[i + 1])
+                )
+                self.m_value_positions.append(
+                    int(arg.filename_namepos_valuepos[i + 2])
+                )
                 i += 3
             except ValueError:
-                self.m_argparser.error("name pos and value pos must be integers")
+                self.m_argparser.error(
+                    "name pos and value pos must be integers"
+                )
         self.m_add_value = arg.add_value
         self.m_abs_value = arg.abs_value
         self.m_name_case = arg.name_case
@@ -115,18 +129,28 @@ class Compvalueutil:
         self.m_logger.info(f"# read args end ... {datetime.datetime.now()}")
 
     def print_inputs(self):
-        self.m_logger.info(f"# self.m_logger.info inputs start ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# self.m_logger.info inputs start ... {datetime.datetime.now()}"
+        )
         self.m_logger.info(f"output prefix       : {self.m_output_prefix}")
         self.m_logger.info(f"comp size           : {self.m_comp_size}")
         for i in range(self.m_comp_size):
             self.m_logger.info(f"{i}th filename      : {self.m_filenames[i]}")
-            self.m_logger.info(f"{i}th name pos      : {self.m_name_positions[i]}")
-            self.m_logger.info(f"{i}th value pos     : {self.m_value_positions[i]}")
+            self.m_logger.info(
+                f"{i}th name pos      : {self.m_name_positions[i]}"
+            )
+            self.m_logger.info(
+                f"{i}th value pos     : {self.m_value_positions[i]}"
+            )
         self.m_logger.info(f"add_value           : {self.m_add_value}")
         self.m_logger.info(f"abs_value           : {self.m_abs_value}")
         self.m_logger.info(f"name_case           : {self.m_name_case}")
-        self.m_logger.info(f"hist x min/max      : {self.m_hist_x_min_max[0]} {self.m_hist_x_min_max[1]}")
-        self.m_logger.info(f"# self.m_logger.info inputs end ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"hist x min/max      : {self.m_hist_x_min_max[0]} {self.m_hist_x_min_max[1]}"
+        )
+        self.m_logger.info(
+            f"# self.m_logger.info inputs end ... {datetime.datetime.now()}"
+        )
 
     def read_files(self):
         self.m_logger.info(f"# read files start ... {datetime.datetime.now()}")
@@ -135,7 +159,9 @@ class Compvalueutil:
         self.m_logger.info(f"# read files end ... {datetime.datetime.now()}")
 
     def read_file(self, filename, i):
-        self.m_logger.info(f"# read file({filename}) start ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# read file({filename}) start ... {datetime.datetime.now()}"
+        )
         max_pos = self.get_max_pos(i)
         f = open(filename, "rt")
         while True:
@@ -169,13 +195,19 @@ class Compvalueutil:
                     value_1 = node.get_value(i)
                     node.set_value(i, value + value_1)
         f.close()
-        self.m_logger.info(f"# read file({filename}) end ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# read file({filename}) end ... {datetime.datetime.now()}"
+        )
 
     def print_statistics_all(self):
-        self.m_logger.info(f"# self.m_logger.info statistics all start ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# self.m_logger.info statistics all start ... {datetime.datetime.now()}"
+        )
         for i in range(self.m_comp_size):
             self.print_statistics(i)
-        self.m_logger.info(f"# self.m_logger.info statistics all end ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# self.m_logger.info statistics all end ... {datetime.datetime.now()}"
+        )
 
     def print_statistics(self, i):
         self.m_logger.info(
@@ -193,7 +225,9 @@ class Compvalueutil:
         array = np.array(values)
         self.print_statistics_array(f"{i}th", array, names)
         #
-        self.m_logger.info(f"# self.m_logger.info statistics({self.m_filenames[i]}) end ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# self.m_logger.info statistics({self.m_filenames[i]}) end ... {datetime.datetime.now()}"
+        )
 
     def compare_all(self):
         self.m_logger.info(f"# compare all start ... {datetime.datetime.now()}")
@@ -202,7 +236,9 @@ class Compvalueutil:
         self.m_logger.info(f"# compare all end ... {datetime.datetime.now()}")
 
     def compare(self, i):
-        self.m_logger.info(f"# compare 0 vs {i} start ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# compare 0 vs {i} start ... {datetime.datetime.now()}"
+        )
         #
         names = []
         values_0th = []
@@ -220,15 +256,84 @@ class Compvalueutil:
         array_diff_percentage = (array_nth - array_0th) / array_0th * 100.0
         #
         self.print_statistics_array("diff", array_diff, names)
-        self.print_statistics_array("diff_percentage", array_diff_percentage, names)
+        self.print_statistics_array(
+            "diff_percentage", array_diff_percentage, names
+        )
         #
         self.write_scatter_plot(array_0th, array_nth, i)
         self.write_histogram_plot(array_diff, i)
+        self.write_scatter_hist_plot(array_0th, array_nth, i)
         #
-        self.m_logger.info(f"# compare 0 vs {i} end ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# compare 0 vs {i} end ... {datetime.datetime.now()}"
+        )
+
+    def write_scatter_hist_plot(self, array_0th, array_nth, i):
+        fig, axs = plt.subplot_mosaic(
+            [["histx", "."], ["scatter", "histy"]],
+            figsize=(6, 6),
+            width_ratios=(4, 1),
+            height_ratios=(1, 4),
+            layout="constrained",
+        )
+        self.scatter_hist(
+            array_0th, array_nth, axs["scatter"], axs["histx"], axs["histy"], i
+        )
+        png_filename = f"{self.m_output_prefix}.{i}th.scatter_hist.plot.png"
+        plt.savefig(f"{png_filename}")
+        plt.close()
+
+    def scatter_hist(self, x, y, ax, ax_histx, ax_histy, i):
+        ax_histx.tick_params(axis="x", labelbottom=False)
+        ax_histy.tick_params(axis="y", labelleft=False)
+        #
+        ax.scatter(x, y)
+        #
+        min_value = np.min(x)
+        max_value = np.max(x)
+        max_value_lower = max_value * 0.9
+        max_value_upper = max_value * 1.1
+        # self.m_logger.info(f"#debug-1 {min_value} {max_value} {max_value_lower} {max_value_upper}")
+        array_0th_ceneter_x = np.array([min_value, max_value])
+        array_0th_center_bound_y = np.array([min_value, max_value])
+        array_0th_lower_bound_y = np.array([min_value, max_value_lower])
+        array_0th_upper_bound_y = np.array([min_value, max_value_upper])
+        ax.plot(
+            array_0th_ceneter_x,
+            array_0th_center_bound_y,
+            color="black",
+            linestyle="--",
+        )
+        ax.plot(
+            array_0th_ceneter_x,
+            array_0th_lower_bound_y,
+            color="black",
+            linestyle=":",
+        )
+        ax.plot(
+            array_0th_ceneter_x,
+            array_0th_upper_bound_y,
+            color="black",
+            linestyle=":",
+        )
+        ax.set_xlabel(f"{self.m_filenames[0]}")
+        ax.set_ylabel(f"{self.m_filenames[i]}")
+        ax.set_title(f"0th vs {i}th scatter plot(+-10%)")
+        #
+        # binwidth = 0.25
+        # xymax = max(np.max(np.abs(x)), np.max(np.abs(y)))
+        # lim = (int(xymax / binwidth) + 1) * binwidth
+        ##
+        # bins = np.arange(-lim, lim + binwidth, binwidth)
+        # ax_histx.hist(x, bins=bins)
+        # ax_histy.hist(y, bins=bins, orientation="horizontal")
+        ax_histx.hist(x)
+        ax_histy.hist(y, orientation="horizontal")
 
     def write_scatter_plot(self, array_0th, array_nth, i):
-        self.m_logger.info(f"# write scatter plot(0th vs {i}th) start ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# write scatter plot(0th vs {i}th) start ... {datetime.datetime.now()}"
+        )
         plt.figure(figsize=(8, 6))
         plt.scatter(array_0th, array_nth)
         min_value = np.min(array_0th)
@@ -240,9 +345,24 @@ class Compvalueutil:
         array_0th_center_bound_y = np.array([min_value, max_value])
         array_0th_lower_bound_y = np.array([min_value, max_value_lower])
         array_0th_upper_bound_y = np.array([min_value, max_value_upper])
-        plt.plot(array_0th_ceneter_x, array_0th_center_bound_y, color="black", linestyle="--")
-        plt.plot(array_0th_ceneter_x, array_0th_lower_bound_y, color="black", linestyle=":")
-        plt.plot(array_0th_ceneter_x, array_0th_upper_bound_y, color="black", linestyle=":")
+        plt.plot(
+            array_0th_ceneter_x,
+            array_0th_center_bound_y,
+            color="black",
+            linestyle="--",
+        )
+        plt.plot(
+            array_0th_ceneter_x,
+            array_0th_lower_bound_y,
+            color="black",
+            linestyle=":",
+        )
+        plt.plot(
+            array_0th_ceneter_x,
+            array_0th_upper_bound_y,
+            color="black",
+            linestyle=":",
+        )
         plt.scatter(array_0th, array_nth)
         plt.xlabel(f"{self.m_filenames[0]}")
         plt.ylabel(f"{self.m_filenames[i]}")
@@ -252,19 +372,29 @@ class Compvalueutil:
         png_filename = f"{self.m_output_prefix}.{i}th.scatter.plot.png"
         plt.savefig(f"{png_filename}")
         plt.close()
-        self.m_logger.info(f"# write scatter plot(0th vs {i}th) start ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# write scatter plot(0th vs {i}th) end ... {datetime.datetime.now()}"
+        )
 
     def write_histogram_plot(self, array_diff, i):
-        self.m_logger.info(f"# write histogram plot(0th vs {i}th) start ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# write histogram plot(0th vs {i}th) start ... {datetime.datetime.now()}"
+        )
         plt.figure(figsize=(8, 6))
         if None != self.m_hist_x_min_max and None != self.m_hist_x_min_max[1]:
-            plt.hist(array_diff, bins=50, range=(self.m_hist_x_min_max[0], self.m_hist_x_min_max[1]))
+            plt.hist(
+                array_diff,
+                bins=50,
+                range=(self.m_hist_x_min_max[0], self.m_hist_x_min_max[1]),
+            )
         else:
             plt.hist(array_diff, bins=50)
         plt.xlabel(f"{i}th - 0th")
         png_filename = f"{self.m_output_prefix}.{i}th.histogram.plot.png"
         plt.savefig(f"{png_filename}")
-        self.m_logger.info(f"# write histogram plot(0th vs {i}th) end ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# write histogram plot(0th vs {i}th) end ... {datetime.datetime.now()}"
+        )
 
     def print_statistics_array(self, head_msg, array, names):
         self.m_logger.info(f"{head_msg} size   : {np.size(array)}")
@@ -272,8 +402,12 @@ class Compvalueutil:
         self.m_logger.info(f"{head_msg} median : {np.median(array)}")
         min_index = np.argmin(array)
         max_index = np.argmax(array)
-        self.m_logger.info(f"{head_msg} min    : {np.min(array)} {names[min_index]}")
-        self.m_logger.info(f"{head_msg} max    : {np.max(array)} {names[max_index]}")
+        self.m_logger.info(
+            f"{head_msg} min    : {np.min(array)} {names[min_index]}"
+        )
+        self.m_logger.info(
+            f"{head_msg} max    : {np.max(array)} {names[max_index]}"
+        )
         self.m_logger.info(f"{head_msg} std    : {np.std(array)}")
         self.m_logger.info(f"{head_msg} var    : {np.var(array)}")
 
@@ -281,20 +415,28 @@ class Compvalueutil:
         return max(self.m_name_positions[pos], self.m_value_positions[pos])
 
     def print_node_dic(self, size=10):
-        self.m_logger.info(f"# self.m_logger.info node dic start ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# self.m_logger.info node dic start ... {datetime.datetime.now()}"
+        )
         count = 0
         for name in self.m_node_dic:
             if count > size:
-                self.m_logger.info(f"because count({count}) is more than size({size}), print_node_dic is halted.")
+                self.m_logger.info(
+                    f"because count({count}) is more than size({size}), print_node_dic is halted."
+                )
                 break
             node = self.m_node_dic[name]
             self.m_logger.info(f"{name} {node.get_str()}")
             count += 1
-        self.m_logger.info(f"# self.m_logger.info node dic end ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# self.m_logger.info node dic end ... {datetime.datetime.now()}"
+        )
 
     def run(self, args):
         self.init_logging(args)
-        self.m_logger.info(f"# compvalueutil.py start ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# compvalueutil.py({self.m_version}) start ... {datetime.datetime.now()}"
+        )
         self.init_argparser()
         self.read_args(args)
         self.print_inputs()
@@ -302,7 +444,9 @@ class Compvalueutil:
         self.print_node_dic()
         self.print_statistics_all()
         self.compare_all()
-        self.m_logger.info(f"# compvalueutil.py end ... {datetime.datetime.now()}")
+        self.m_logger.info(
+            f"# compvalueutil.py({self.m_version}) end ... {datetime.datetime.now()}"
+        )
 
 
 def main(args):

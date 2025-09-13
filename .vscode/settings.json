@@ -15,6 +15,6 @@
         "editor.formatOnSave": true
     },
     "black-formatter.args": [
-        "--line-length", "119"
+        "--line-length", "80"
     ],
 }
