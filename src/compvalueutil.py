@@ -259,23 +259,18 @@ class Compvalueutil:
         array_nth = np.array(values_nth)
         array_diff = array_nth - array_0th
         array_diff_percentage = (array_nth - array_0th) / array_0th * 100.0
-        # self.m_hist_x_min_max = [0, 0]
-        # self.m_hist_x_min_max[0] = np.min(
-        #    [np.min(array_0th), np.min(array_nth)]
-        # )
-        # self.m_hist_x_min_max[1] = np.max(
-        #    [np.max(array_0th), np.max(array_nth)]
-        # )
-        # self.m_logger.info(f"{array_diff}")
-        # self.m_logger.info(f"{array_diff_percentage}")
-        #
         self.print_statistics_array("diff", array_diff, names)
         self.print_statistics_array(
             "diff_percentage", array_diff_percentage, names
         )
         #
-        min_value = np.min(array_0th)
-        max_value = np.max(array_0th)
+        min_value_0th = np.min(array_0th)
+        max_value_0th = np.max(array_0th)
+        min_value_nth = np.min(array_nth)
+        max_value_nth = np.max(array_nth)
+        #
+        min_value = np.min([min_value_0th, min_value_nth])
+        max_value = np.max([max_value_0th, max_value_nth])
         max_value_lower = max_value * 0.9
         max_value_upper = max_value * 1.1
         array_0th_center_x = np.array([min_value, max_value])
@@ -291,6 +286,8 @@ class Compvalueutil:
             array_0th_center_bound_y,
             array_0th_lower_bound_y,
             array_0th_upper_bound_y,
+            min_value,
+            max_value,
         )
         if self.m_hist_x_min_max:
             self.write_hist_plot(
@@ -318,7 +315,9 @@ class Compvalueutil:
             np.max(np.abs(array_diff_percentage)),
             "diff.percentage",
         )
-        self.write_2dhist_plot(i, array_0th, array_nth, self.m_bins)
+        self.write_2dhist_plot(
+            i, array_0th, array_nth, self.m_bins, min_value, max_value
+        )
         self.write_scatter_with_hist_plot(
             i,
             array_0th,
@@ -328,6 +327,8 @@ class Compvalueutil:
             array_0th_lower_bound_y,
             array_0th_upper_bound_y,
             self.m_bins,
+            min_value,
+            max_value,
         )
         self.m_logger.info(
             f"# compare 0 vs {i} end ... {datetime.datetime.now()}"
@@ -342,10 +343,14 @@ class Compvalueutil:
         array_0th_center_bound_y,
         array_0th_lower_bound_y,
         array_0th_upper_bound_y,
+        min_range,
+        max_range,
     ):
         self.m_logger.info(f"# write scatter plot start")
-        plt.figure(figsize=(8, 6))
+        plt.figure(figsize=(8, 8))
         plt.scatter(array_0th, array_nth)
+        plt.xlim(min_range, max_range)
+        plt.ylim(min_range, max_range)
         plt.plot(
             array_0th_center_x,
             array_0th_center_bound_y,
@@ -364,9 +369,9 @@ class Compvalueutil:
             color="black",
             linestyle=":",
         )
+        plt.title(f"0th vs {i}th scatter plot(+-10%)")
         plt.xlabel(f"{self.m_filenames[0]}")
         plt.ylabel(f"{self.m_filenames[i]}")
-        plt.title(f"0th vs {i}th scatter plot(+-10%)")
         plt.grid(True)
         png_filename = f"{self.m_output_prefix}.{i}th.scatter.plot.png"
         self.m_logger.info(f"png file : {png_filename}")
@@ -378,7 +383,7 @@ class Compvalueutil:
         self.m_logger.info(
             f"# write {msg} histogram plot(0th vs {i}th) start ... {datetime.datetime.now()}"
         )
-        plt.figure(figsize=(8, 6))
+        plt.figure(figsize=(8, 8))
         if None != min and None != max:
             plt.hist(array_diff, bins=bins, range=(min, max))
         else:
@@ -392,12 +397,20 @@ class Compvalueutil:
             f"# write {msg} histogram plot(0th vs {i}th) end ... {datetime.datetime.now()}"
         )
 
-    def write_2dhist_plot(self, i, array_0th, array_nth, bins):
+    def write_2dhist_plot(
+        self, i, array_0th, array_nth, bins, min_range, max_range
+    ):
         self.m_logger.info(
             f"# write 2dhist plot(0th vs {i}th) start ... {datetime.datetime.now()}"
         )
-        plt.figure(figsize=(8, 6))
-        plt.hist2d(array_0th, array_nth, bins=(bins, bins), cmap=plt.cm.jet)
+        plt.figure(figsize=(8, 8))
+        plt.hist2d(
+            array_0th,
+            array_nth,
+            bins=(bins, bins),
+            range=[[min_range, max_range], [min_range, max_range]],
+            cmap=plt.cm.jet,
+        )
         plt.colorbar(label="freqs")
         plt.xlabel(f"{self.m_filenames[0]}")
         plt.ylabel(f"{self.m_filenames[i]}")
@@ -421,13 +434,15 @@ class Compvalueutil:
         array_0th_lower_bound_y,
         array_0th_upper_bound_y,
         bins,
+        min_range,
+        max_range,
     ):
         self.m_logger.info(
             f"# write scatter with hist plot(0th vs {i}th) start ... {datetime.datetime.now()}"
         )
         fig, axs = plt.subplot_mosaic(
             [["histx", "."], ["scatter", "histy"]],
-            figsize=(8, 6),
+            figsize=(8, 8),
             width_ratios=(4, 1),
             height_ratios=(1, 4),
             layout="constrained",
@@ -435,9 +450,15 @@ class Compvalueutil:
         #
         axs["histx"].tick_params(axis="x", labelbottom=False)
         axs["histy"].tick_params(axis="y", labelleft=False)
+        axs["histx"].hist(array_0th, bins=bins, range=[min_range, max_range])
+        axs["histy"].hist(
+            array_nth,
+            bins=bins,
+            orientation="horizontal",
+            range=[min_range, max_range],
+        )
         #
         axs["scatter"].scatter(array_0th, array_nth)
-        #
         axs["scatter"].plot(
             array_0th_center_x,
             array_0th_center_bound_y,
@@ -458,11 +479,10 @@ class Compvalueutil:
         )
         axs["scatter"].set_xlabel(f"{self.m_filenames[0]}")
         axs["scatter"].set_ylabel(f"{self.m_filenames[i]}")
+        axs["scatter"].sharex(axs["histx"])
+        axs["scatter"].sharey(axs["histy"])
         axs["scatter"].set_title(f"0th vs {i}th scatter plot(+-10%)")
         axs["scatter"].grid(True)
-        #
-        axs["histx"].hist(array_0th, bins=bins)
-        axs["histy"].hist(array_nth, bins=bins, orientation="horizontal")
         #
         png_filename = f"{self.m_output_prefix}.{i}th.scatter_hist.plot.png"
         self.m_logger.info(f"png file : {png_filename}")
@@ -471,133 +491,6 @@ class Compvalueutil:
         self.m_logger.info(
             f"# write scatter with hist plot(0th vs {i}th) end ... {datetime.datetime.now()}"
         )
-
-    #    def write_scatter_hist_plot(self, array_0th, array_nth, i):
-    #        fig, axs = plt.subplot_mosaic(
-    #            [["histx", "."], ["scatter", "histy"]],
-    #            figsize=(6, 6),
-    #            width_ratios=(4, 1),
-    #            height_ratios=(1, 4),
-    #            layout="constrained",
-    #        )
-    #        self.scatter_hist(
-    #            array_0th, array_nth, axs["scatter"], axs["histx"], axs["histy"], i
-    #        )
-    #        png_filename = f"{self.m_output_prefix}.{i}th.scatter_hist.plot.png"
-    #        plt.savefig(f"{png_filename}")
-    #        plt.close()
-    #
-    #    def scatter_hist(self, x, y, ax, ax_histx, ax_histy, i):
-    #        ax_histx.tick_params(axis="x", labelbottom=False)
-    #        ax_histy.tick_params(axis="y", labelleft=False)
-    #        #
-    #        ax.scatter(x, y)
-    #        #
-    #        # min_value = np.min(x)
-    #        # max_value = np.max(x)
-    #        # max_value_lower = max_value * 0.9
-    #        # max_value_upper = max_value * 1.1
-    #        # array_0th_ceneter_x = np.array([min_value, max_value])
-    #        # array_0th_center_bound_y = np.array([min_value, max_value])
-    #        # array_0th_lower_bound_y = np.array([min_value, max_value_lower])
-    #        # array_0th_upper_bound_y = np.array([min_value, max_value_upper])
-    #        ax.plot(
-    #            array_0th_ceneter_x,
-    #            array_0th_center_bound_y,
-    #            color="black",
-    #            linestyle="--",
-    #        )
-    #        ax.plot(
-    #            array_0th_ceneter_x,
-    #            array_0th_lower_bound_y,
-    #            color="black",
-    #            linestyle=":",
-    #        )
-    #        ax.plot(
-    #            array_0th_ceneter_x,
-    #            array_0th_upper_bound_y,
-    #            color="black",
-    #            linestyle=":",
-    #        )
-    #        ax.set_xlabel(f"{self.m_filenames[0]}")
-    #        ax.set_ylabel(f"{self.m_filenames[i]}")
-    #        ax.set_title(f"0th vs {i}th scatter plot(+-10%)")
-    #        #
-    #        # binwidth = 0.25
-    #        # xymax = max(np.max(np.abs(x)), np.max(np.abs(y)))
-    #        # lim = (int(xymax / binwidth) + 1) * binwidth
-    #        ##
-    #        # bins = np.arange(-lim, lim + binwidth, binwidth)
-    #        # ax_histx.hist(x, bins=bins)
-    #        # ax_histy.hist(y, bins=bins, orientation="horizontal")
-    #        ax_histx.hist(x)
-    #        ax_histy.hist(y, orientation="horizontal")
-    #
-    #    def write_scatter_plot(self, array_0th, array_nth, i):
-    #        self.m_logger.info(
-    #            f"# write scatter plot(0th vs {i}th) start ... {datetime.datetime.now()}"
-    #        )
-    #        plt.figure(figsize=(8, 6))
-    #        plt.scatter(array_0th, array_nth)
-    #        min_value = np.min(array_0th)
-    #        max_value = np.max(array_0th)
-    #        max_value_lower = max_value * 0.9
-    #        max_value_upper = max_value * 1.1
-    #        # self.m_logger.info(f"#debug-1 {min_value} {max_value} {max_value_lower} {max_value_upper}")
-    #        array_0th_ceneter_x = np.array([min_value, max_value])
-    #        array_0th_center_bound_y = np.array([min_value, max_value])
-    #        array_0th_lower_bound_y = np.array([min_value, max_value_lower])
-    #        array_0th_upper_bound_y = np.array([min_value, max_value_upper])
-    #        plt.plot(
-    #            array_0th_ceneter_x,
-    #            array_0th_center_bound_y,
-    #            color="black",
-    #            linestyle="--",
-    #        )
-    #        plt.plot(
-    #            array_0th_ceneter_x,
-    #            array_0th_lower_bound_y,
-    #            color="black",
-    #            linestyle=":",
-    #        )
-    #        plt.plot(
-    #            array_0th_ceneter_x,
-    #            array_0th_upper_bound_y,
-    #            color="black",
-    #            linestyle=":",
-    #        )
-    #        plt.scatter(array_0th, array_nth)
-    #        plt.xlabel(f"{self.m_filenames[0]}")
-    #        plt.ylabel(f"{self.m_filenames[i]}")
-    #        plt.title(f"0th vs {i}th scatter plot(+-10%)")
-    #        # plt.colorbar(label="color level")
-    #        plt.grid(True)
-    #        png_filename = f"{self.m_output_prefix}.{i}th.scatter.plot.png"
-    #        plt.savefig(f"{png_filename}")
-    #        plt.close()
-    #        self.m_logger.info(
-    #            f"# write scatter plot(0th vs {i}th) end ... {datetime.datetime.now()}"
-    #        )
-    #
-    #    def write_histogram_plot(self, array_diff, i):
-    #        self.m_logger.info(
-    #            f"# write histogram plot(0th vs {i}th) start ... {datetime.datetime.now()}"
-    #        )
-    #        plt.figure(figsize=(8, 6))
-    #        if None != self.m_hist_x_min_max and None != self.m_hist_x_min_max[1]:
-    #            plt.hist(
-    #                array_diff,
-    #                bins=50,
-    #                range=(self.m_hist_x_min_max[0], self.m_hist_x_min_max[1]),
-    #            )
-    #        else:
-    #            plt.hist(array_diff, bins=50)
-    #        plt.xlabel(f"{i}th - 0th")
-    #        png_filename = f"{self.m_output_prefix}.{i}th.histogram.plot.png"
-    #        plt.savefig(f"{png_filename}")
-    #        self.m_logger.info(
-    #            f"# write histogram plot(0th vs {i}th) end ... {datetime.datetime.now()}"
-    #        )
 
     def print_statistics_array(self, head_msg, array, names):
         self.m_logger.info(f"{head_msg} size   : {np.size(array)}")
